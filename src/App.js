@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
 
 function App() {
+  const [quote, setQuote] = useState('This element will change!');
+  
+  const getData = () => {
+    fetch("https://type.fit/api/quotes") /* it's an arr of objects, turn it to json */
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data.length);
+      let randomNum = Math.floor(Math.random() * data.length);
+      setQuote(data[randomNum].text);
+    })
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>{quote}</h2>
+
+      <button onClick={getData}>Click Me!</button>
+
     </div>
   );
 }
 
 export default App;
+
+
+
+// SUCCESS!!! 3/25/23
